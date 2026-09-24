@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SYNAPSE STUDIO — Award-Winning Digital Architecture & 3D Web Experiences</title>
+  <meta name="description" content="Next-generation creative engineering studio crafting award-winning spatial web experiences, 3D WebGL interfaces, and high-frequency digital platforms.">
+  <meta name="theme-color" content="#06080e">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:title" content="SYNAPSE STUDIO — Future of Digital Experiences">
+  <meta property="og:description" content="Award-winning 3D WebGL interfaces, spatial systems, and immersive digital platforms.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Outfit (Display), Inter (Body), JetBrains Mono (Tech/Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons & Three.js CDNs -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+  <!-- Ambient Glowing Background Mesh -->
+  <div class="ambient-glow-bg" aria-hidden="true">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+  </div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Scroll Progress Indicator -->
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Custom Spring Cursor -->
+  <div id="custom-cursor" class="custom-cursor" aria-hidden="true"></div>
+  <div id="cursor-follower" class="cursor-follower" aria-hidden="true"></div>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav id="navbar" class="navbar" aria-label="Main Navigation">
+      <a href="#hero" class="nav-brand" data-cursor-hover="true">
+        <div class="brand-icon">
+          <i data-lucide="orbit" style="width: 20px; height: 20px;"></i>
+        </div>
+        <span>SYNAPSE<span style="color: var(--cyan);">.</span></span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#about" class="nav-link" data-cursor-hover="true">About</a></li>
+        <li><a href="#services" class="nav-link" data-cursor-hover="true">Services</a></li>
+        <li><a href="#showcase" class="nav-link" data-cursor-hover="true">Live Sandbox</a></li>
+        <li><a href="#portfolio" class="nav-link" data-cursor-hover="true">Case Studies</a></li>
+        <li><a href="#metrics" class="nav-link" data-cursor-hover="true">Metrics</a></li>
+        <li><a href="#testimonials" class="nav-link" data-cursor-hover="true">Reviews</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="sound-toggle" class="sound-toggle-btn" title="Toggle Tactile UI Audio" data-cursor-hover="true" aria-label="Toggle Sound">
+          <i data-lucide="volume-x" style="width: 18px; height: 18px;"></i>
+        </button>
+        <a href="#contact" class="btn btn-primary" data-magnetic="true" data-cursor-hover="true">
+          <span>Launch Project</span>
+          <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+          <span class="btn-glow"></span>
+        </a>
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Open Navigation Menu" data-cursor-hover="true">
+          <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="drawer-backdrop" class="drawer-backdrop"></div>
+  <aside id="mobile-drawer" class="mobile-nav-drawer" aria-label="Mobile Navigation">
+    <div>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px;">
+        <div class="nav-brand">
+          <div class="brand-icon">
+            <i data-lucide="orbit" style="width: 20px; height: 20px;"></i>
+          </div>
+          <span>SYNAPSE<span style="color: var(--cyan);">.</span></span>
+        </div>
+        <button id="drawer-close-btn" style="background: none; border: none; color: var(--text-secondary); cursor: pointer;">
+          <i data-lucide="x" style="width: 24px; height: 24px;"></i>
+        </button>
+      </div>
+
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 24px;">
+        <li><a href="#about" class="mobile-nav-link" style="font-size: 1.25rem; font-weight: 600;">About</a></li>
+        <li><a href="#services" class="mobile-nav-link" style="font-size: 1.25rem; font-weight: 600;">Services</a></li>
+        <li><a href="#showcase" class="mobile-nav-link" style="font-size: 1.25rem; font-weight: 600;">Live Sandbox</a></li>
+        <li><a href="#portfolio" class="mobile-nav-link" style="font-size: 1.25rem; font-weight: 600;">Case Studies</a></li>
+        <li><a href="#metrics" class="mobile-nav-link" style="font-size: 1.25rem; font-weight: 600;">Metrics</a></li>
+        <li><a href="#testimonials" class="mobile-nav-link" style="font-size: 1.25rem; font-weight: 600;">Testimonials</a></li>
+        <li><a href="#contact" class="mobile-nav-link" style="font-size: 1.25rem; font-weight: 600; color: var(--cyan);">Start Inquiry</a></li>
+      </ul>
+    </div>
+
+    <div style="padding-top: 24px; border-top: 1px solid var(--border-subtle);">
+      <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">Direct Transmission</div>
+      <a href="mailto:hello@synapse.studio" style="color: var(--cyan); font-family: var(--font-mono); font-size: 0.9rem;">hello@synapse.studio</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- ==========================================================================
+         HERO SECTION
+         ========================================================================== -->
+    <section id="hero" class="hero-section">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <div class="hero-content">
+            <div class="hero-tag" data-cursor-hover="true">
+              <span class="status-indicator"></span>
+              <span class="mono" style="letter-spacing: 0.1em;">SPATIAL ENGINE v2.6 // QUANTUM WEBGL</span>
+              <span style="opacity: 0.35;">•</span>
+              <span style="color: var(--emerald); font-size: 0.78rem; font-weight: 600;">ACTIVE PIPELINE</span>
+            </div>
+
+            <h1 class="hero-title">
+              <span class="title-line"><span class="reveal-text">ARCHITECTING</span></span>
+              <span class="title-line"><span class="reveal-text gradient-text">NEXT-GEN 3D</span></span>
+              <span class="title-line"><span class="reveal-text">DIGITAL WORLDS.</span></span>
+            </h1>
+
+            <p class="hero-description">
+              We fuse hyper-performant WebGL engineering, spatial compute physics, and fluid typography to forge award-winning digital experiences that mesmerize and convert.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#portfolio" class="btn btn-primary" data-magnetic="true" data-cursor-hover="true">
+                <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+                <span>Explore Works</span>
+                <span class="btn-glow"></span>
+              </a>
+              <a href="#showcase" class="btn btn-secondary" data-magnetic="true" data-cursor-hover="true">
+                <i data-lucide="play" style="width: 16px; height: 16px;"></i>
+                <span>Interactive Sandbox</span>
+              </a>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat-item">
+                <span class="stat-number gradient-text-cyan">99.8%</span>
+                <span class="stat-label">Client Satisfaction</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">42+</span>
+                <span class="stat-label">Awwwards / FWAs</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" style="color: var(--emerald);">120 FPS</span>
+                <span class="stat-label">Smooth GPU Render</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero 3D Interactive WebGL Element -->
+          <div class="hero-visual-wrapper" data-cursor-hover="true">
+            <canvas id="hero-canvas"></canvas>
+            
+            <!-- Floating Holographic Telemetry Chips -->
+            <div class="floating-chip chip-top-right">
+              <span class="chip-pulse"></span>
+              <div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 0.05em;">GPU COMPUTE</div>
+                <div style="font-weight: 700; font-size: 0.82rem; color: #fff;">120 FPS Native</div>
+              </div>
+            </div>
+
+            <div class="floating-chip chip-bottom-left">
+              <i data-lucide="activity" style="width: 16px; height: 16px; color: var(--cyan);"></i>
+              <div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 0.05em;">INERTIA DRAG</div>
+                <div style="font-weight: 700; font-size: 0.82rem; color: var(--cyan);">Real-time Physics</div>
+              </div>
+            </div>
+
+            <div class="canvas-badge-overlay">
+              <i data-lucide="move-3d" style="width: 14px; height: 14px;"></i>
+              <span>DRAG / HOVER TO ROTATE 3D MESH</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ABOUT SECTION
+         ========================================================================== -->
+    <section id="about" class="section">
+      <div class="container">
+        
+        <div class="section-header reveal">
+          <div class="section-badge">
+            <span class="dot"></span>
+            <span>Studio Philosophy</span>
+          </div>
+          <h2 class="section-title">Beyond Standard Interfaces</h2>
+          <p class="section-subtitle">
+            Most digital agencies produce static templates. We engineer living, interactive ecosystems driven by spatial dynamics, GPU acceleration, and tactile micro-feedback.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="glass-card reveal" data-tilt="true" style="padding: 40px;">
+            <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--cyan); margin-bottom: 16px;">// 01. MANIFESTO</div>
+            <h3 style="font-size: 1.8rem; margin-bottom: 20px; line-height: 1.3;">
+              We believe websites should feel like tangible, responsive digital instruments.
+            </h3>
+            <p style="margin-bottom: 24px; line-height: 1.7;">
+              Every curve, shadow, and transition in our work is calculated to mimic real-world spring physics. By eliminating input friction and weaving cinematic motion into user journeys, we elevate brands into industry benchmarks.
+            </p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+              <span class="tech-pill">Zero Bloat</span>
+              <span class="tech-pill">Sub-10ms Latency</span>
+              <span class="tech-pill">Aesthetic Supremacy</span>
+            </div>
+          </div>
+
+          <div class="about-features-list">
+            <div class="about-feature-item reveal" data-cursor-hover="true">
+              <div class="feature-icon-box">
+                <i data-lucide="cpu" style="width: 24px; height: 24px;"></i>
+              </div>
+              <div>
+                <h4 style="font-size: 1.15rem; margin-bottom: 6px;">GPU-Accelerated WebGL</h4>
+                <p style="font-size: 0.9rem;">Custom Three.js & WebGPU compute pipelines with low memory overhead for flawless 120 FPS mobile and desktop performance.</p>
+              </div>
+            </div>
+
+            <div class="about-feature-item reveal" data-cursor-hover="true">
+              <div class="feature-icon-box">
+                <i data-lucide="fingerprint" style="width: 24px; height: 24px;"></i>
+              </div>
+              <div>
+                <h4 style="font-size: 1.15rem; margin-bottom: 6px;">Tactile Micro-Interactions</h4>
+                <p style="font-size: 0.9rem;">Organic spring physics, magnetic buttons, dynamic specular glare cards, and harmonic Web Audio synthesizer cues.</p>
+              </div>
+            </div>
+
+            <div class="about-feature-item reveal" data-cursor-hover="true">
+              <div class="feature-icon-box">
+                <i data-lucide="shield-check" style="width: 24px; height: 24px;"></i>
+              </div>
+              <div>
+                <h4 style="font-size: 1.15rem; margin-bottom: 6px;">Enterprise Engineering Integrity</h4>
+                <p style="font-size: 0.9rem;">Semantic HTML5, WCAG AA accessibility, SEO structured schema, and blazing fast CDN global edge delivery.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SERVICES BENTO GRID
+         ========================================================================== -->
+    <section id="services" class="section" style="background: radial-gradient(circle at 50% 50%, rgba(12,16,23,0.8) 0%, var(--bg-primary) 100%);">
+      <div class="container">
+        
+        <div class="section-header reveal">
+          <div class="section-badge">
+            <span class="dot"></span>
+            <span>Capabilities & Mastery</span>
+          </div>
+          <h2 class="section-title">Specialized Engineering Disciplines</h2>
+          <p class="section-subtitle">
+            From bespoke 3D brand stages to high-frequency fintech terminals, explore our full spectrum of creative technology solutions.
+          </p>
+        </div>
+
+        <div class="bento-grid">
+          
+          <!-- Bento Card 1: 3D WebGL & Spatial -->
+          <div class="glass-card bento-card-large reveal" data-tilt="true" data-cursor-hover="true" onclick="window.openDisciplineModal('3d-pipeline')" style="cursor: pointer;">
+            <div class="bento-inner">
+              <div>
+                <div class="bento-header">
+                  <div class="bento-icon">
+                    <i data-lucide="box" style="width: 26px; height: 26px;"></i>
+                  </div>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <span class="bento-tag">CORE DISCIPLINE</span>
+                    <span style="font-size: 0.72rem; color: var(--cyan); font-family: var(--font-mono); padding: 4px 8px; border-radius: 4px; background: rgba(0,240,255,0.08); border: 1px solid rgba(0,240,255,0.2);">LIVE SIMULATOR</span>
+                  </div>
+                </div>
+                <h3 class="bento-title">3D WebGL & Spatial Environments</h3>
+                <p class="bento-desc">
+                  Interactive 3D product visualizers, particle morphing engines, custom GLSL shader choreography, and virtual spatial computing portals rendered natively in browser.
+                </p>
+
+                <!-- Interactive Mini Pipeline Stages -->
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px;">
+                  <span class="tech-pill" style="color: var(--cyan); border-color: rgba(0,240,255,0.3); background: rgba(0,240,255,0.06);">01. Draco Decimation</span>
+                  <span class="tech-pill" style="color: var(--cyan); border-color: rgba(0,240,255,0.3); background: rgba(0,240,255,0.06);">02. GLSL Compute</span>
+                  <span class="tech-pill" style="color: var(--cyan); border-color: rgba(0,240,255,0.3); background: rgba(0,240,255,0.06);">03. WebGPU 120FPS</span>
+                  <span class="tech-pill" style="color: var(--cyan); border-color: rgba(0,240,255,0.3); background: rgba(0,240,255,0.06);">04. Bloom Post</span>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-subtle); flex-wrap: wrap; gap: 12px;">
+                <button class="bento-interactive-btn" onclick="event.stopPropagation(); window.openDisciplineModal('3d-pipeline');">
+                  <i data-lucide="play-circle" style="width: 16px; height: 16px;"></i>
+                  <span>Launch 3D Pipeline Visualizer</span>
+                </button>
+                <div class="bento-footer" style="margin-top: 0;">
+                  <span>Inspect Pipeline Stages</span>
+                  <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento Card 2: AI Interfaces -->
+          <div class="glass-card reveal" data-tilt="true" data-cursor-hover="true" onclick="window.openDisciplineModal('ai-ux')" style="cursor: pointer;">
+            <div class="bento-inner">
+              <div>
+                <div class="bento-header">
+                  <div class="bento-icon" style="color: var(--violet);">
+                    <i data-lucide="bot" style="width: 26px; height: 26px;"></i>
+                  </div>
+                  <span class="bento-tag">AI SYSTEMS</span>
+                </div>
+                <h3 class="bento-title">Generative AI User Interfaces</h3>
+                <p class="bento-desc">
+                  Node-based canvas workflows, streaming prompt visualizers, and neural multi-modal interfaces designed for intuitive human-AI symbiosis.
+                </p>
+
+                <!-- Mini Live Streaming Indicator -->
+                <div style="padding: 10px 14px; border-radius: 10px; background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.25); margin-top: 16px; display: flex; align-items: center; justify-content: space-between;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="chip-pulse" style="background: var(--violet); box-shadow: 0 0 10px var(--violet);"></span>
+                    <span style="font-size: 0.75rem; font-family: var(--font-mono); color: #cbd5e1;">Streaming Ticker</span>
+                  </div>
+                  <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--violet); font-weight: 700;">168 tok/s</span>
+                </div>
+              </div>
+
+              <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+                <button class="bento-interactive-btn bento-interactive-btn-violet" onclick="event.stopPropagation(); window.openDisciplineModal('ai-ux');">
+                  <i data-lucide="terminal" style="width: 15px; height: 15px;"></i>
+                  <span>Test Neural Stream</span>
+                </button>
+                <div class="bento-footer" style="margin-top: 0; color: var(--violet);">
+                  <span>Explore AI UX</span>
+                  <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento Card 3: FinTech & High Frequency -->
+          <div class="glass-card reveal" data-tilt="true" data-cursor-hover="true" onclick="window.openDisciplineModal('fintech')" style="cursor: pointer;">
+            <div class="bento-inner">
+              <div>
+                <div class="bento-header">
+                  <div class="bento-icon" style="color: var(--emerald);">
+                    <i data-lucide="trending-up" style="width: 26px; height: 26px;"></i>
+                  </div>
+                  <span class="bento-tag">ULTRA-FAST</span>
+                </div>
+                <h3 class="bento-title">High-Frequency FinTech UI</h3>
+                <p class="bento-desc">
+                  Real-time algorithmic trading desks, WebWorker streaming orderbooks, and canvas heatmaps handling 100k data points/sec without UI lag.
+                </p>
+
+                <!-- Mini L2 Benchmark Indicator -->
+                <div style="padding: 10px 14px; border-radius: 10px; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); margin-top: 16px; display: flex; align-items: center; justify-content: space-between;">
+                  <span style="font-size: 0.75rem; font-family: var(--font-mono); color: #cbd5e1;">Latency Benchmark</span>
+                  <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--emerald); font-weight: 700;">0.04 ms</span>
+                </div>
+              </div>
+
+              <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+                <button class="bento-interactive-btn bento-interactive-btn-emerald" onclick="event.stopPropagation(); window.openDisciplineModal('fintech');">
+                  <i data-lucide="activity" style="width: 15px; height: 15px;"></i>
+                  <span>Run L2 Benchmark</span>
+                </button>
+                <div class="bento-footer" style="margin-top: 0; color: var(--emerald);">
+                  <span>View Metrics</span>
+                  <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento Card 4: Large Luxury Branding & Design Systems -->
+          <div class="glass-card bento-card-large reveal" data-tilt="true" data-cursor-hover="true" onclick="window.openDisciplineModal('design-system')" style="cursor: pointer;">
+            <div class="bento-inner">
+              <div>
+                <div class="bento-header">
+                  <div class="bento-icon" style="color: var(--magenta);">
+                    <i data-lucide="palette" style="width: 26px; height: 26px;"></i>
+                  </div>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <span class="bento-tag">LUXURY BRANDING</span>
+                    <span style="font-size: 0.72rem; color: var(--magenta); font-family: var(--font-mono); padding: 4px 8px; border-radius: 4px; background: rgba(236,72,153,0.08); border: 1px solid rgba(236,72,153,0.2);">TOKEN STUDIO</span>
+                  </div>
+                </div>
+                <h3 class="bento-title">Aesthetic Direction & Design Systems</h3>
+                <p class="bento-desc">
+                  Bespoke typography, dark luxury visual systems, motion guidelines, glassmorphic tokens, and comprehensive Figma-to-code component libraries crafted for high-prestige brands.
+                </p>
+
+                <!-- Mini Interactive Palette Swatches Preview -->
+                <div style="display: flex; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
+                  <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted);">ACTIVE TOKENS:</span>
+                  <div style="display: flex; gap: 8px;">
+                    <span style="width: 18px; height: 18px; border-radius: 50%; background: var(--cyan); display: inline-block; box-shadow: 0 0 8px var(--cyan-glow);" title="Cyan #00f0ff"></span>
+                    <span style="width: 18px; height: 18px; border-radius: 50%; background: var(--violet); display: inline-block; box-shadow: 0 0 8px var(--violet-glow);" title="Violet #8b5cf6"></span>
+                    <span style="width: 18px; height: 18px; border-radius: 50%; background: var(--magenta); display: inline-block; box-shadow: 0 0 8px rgba(236,72,153,0.4);" title="Magenta #ec4899"></span>
+                    <span style="width: 18px; height: 18px; border-radius: 50%; background: var(--emerald); display: inline-block; box-shadow: 0 0 8px var(--emerald-glow);" title="Emerald #10b981"></span>
+                  </div>
+                  <span class="tech-pill">Framer Spring: 380/28</span>
+                  <span class="tech-pill">WCAG AAA Certified</span>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-subtle); flex-wrap: wrap; gap: 12px;">
+                <button class="bento-interactive-btn bento-interactive-btn-magenta" onclick="event.stopPropagation(); window.openDisciplineModal('design-system');">
+                  <i data-lucide="sliders" style="width: 15px; height: 15px;"></i>
+                  <span>Launch Design Token Studio</span>
+                </button>
+                <div class="bento-footer" style="margin-top: 0; color: var(--magenta);">
+                  <span>Inspect Design System</span>
+                  <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INTERACTIVE LIVE SHOWCASE / SHADER PLAYGROUND
+         ========================================================================== -->
+    <section id="showcase" class="section">
+      <div class="container">
+        
+        <div class="section-header reveal">
+          <div class="section-badge">
+            <span class="dot"></span>
+            <span>Real-Time Engine</span>
+          </div>
+          <h2 class="section-title">Interactive Generative Sandbox</h2>
+          <p class="section-subtitle">
+            Experience our procedural particle wave dynamics in real-time. Tweak parameters, morph wave warp physics, and move your cursor across the live canvas.
+          </p>
+        </div>
+
+        <div class="showcase-container reveal">
+          
+          <div class="showcase-canvas-box" data-cursor-hover="true">
+            <canvas id="showcase-canvas"></canvas>
+          </div>
+
+          <div class="showcase-controls">
+            <div>
+              <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="sliders" style="width: 18px; height: 18px; color: var(--cyan);"></i>
+                <span>Quantum Shader Controls</span>
+              </div>
+
+              <!-- Presets -->
+              <div style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted); margin-bottom: 8px;">ENGINE PRESETS</div>
+              <div class="preset-buttons">
+                <button class="preset-btn active" data-preset="quantum" onclick="window.setVisualPreset('quantum')">Quantum Grid</button>
+                <button class="preset-btn" data-preset="neural" onclick="window.setVisualPreset('neural')">Neural Flux</button>
+                <button class="preset-btn" data-preset="horizon" onclick="window.setVisualPreset('horizon')">Event Horizon</button>
+              </div>
+
+              <!-- Sliders -->
+              <div class="control-group">
+                <div class="control-label">
+                  <span>Particle Node Density</span>
+                  <span id="val-density" style="color: var(--cyan);">160</span>
+                </div>
+                <input type="range" id="slider-density" class="custom-range" min="60" max="320" value="160" aria-label="Particle Density">
+              </div>
+
+              <div class="control-group">
+                <div class="control-label">
+                  <span>Wave Velocity & Speed</span>
+                  <span id="val-speed" style="color: var(--cyan);">1.2x</span>
+                </div>
+                <input type="range" id="slider-speed" class="custom-range" min="0.2" max="3.0" step="0.1" value="1.2" aria-label="Speed">
+              </div>
+
+              <div class="control-group">
+                <div class="control-label">
+                  <span>Spatial Distortion Warp</span>
+                  <span id="val-distortion" style="color: var(--cyan);">40px</span>
+                </div>
+                <input type="range" id="slider-distortion" class="custom-range" min="10" max="120" value="40" aria-label="Distortion">
+              </div>
+            </div>
+
+            <div style="padding: 16px; border-radius: 12px; background: rgba(0,240,255,0.04); border: 1px solid rgba(0,240,255,0.15); display: flex; align-items: center; gap: 12px;">
+              <i data-lucide="info" style="width: 20px; height: 20px; color: var(--cyan); flex-shrink: 0;"></i>
+              <span style="font-size: 0.8rem; color: var(--text-secondary);">
+                Interactive physics: Hover over the visualizer to push and deform the magnetic node grid in real-time.
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PROJECTS / PORTFOLIO SECTION
+         ========================================================================== -->
+    <section id="portfolio" class="section">
+      <div class="container">
+        
+        <div class="section-header reveal">
+          <div class="section-badge">
+            <span class="dot"></span>
+            <span>Selected Case Studies</span>
+          </div>
+          <h2 class="section-title">Award-Winning Implementations</h2>
+          <p class="section-subtitle">
+            A curated collection of industry-defining digital architectures, high-impact SaaS platforms, and spatial experiences.
+          </p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="portfolio-filters reveal">
+          <button class="filter-btn active" data-filter="all">All Disciplines</button>
+          <button class="filter-btn" data-filter="ai-webgl">Spatial & WebGL</button>
+          <button class="filter-btn" data-filter="fintech">FinTech & Quant</button>
+          <button class="filter-btn" data-filter="creative">AI & Creative</button>
+        </div>
+
+        <!-- Projects Grid (Populated dynamically from portfolioData.js) -->
+        <div id="portfolio-grid" class="portfolio-grid">
+          <!-- Dynamic Cards Inserted Here -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         METRICS & ACHIEVEMENTS SECTION
+         ========================================================================== -->
+    <section id="metrics" class="section metrics-section">
+      <div class="container">
+        <div class="metrics-grid">
+          
+          <div class="metric-card reveal" data-tilt="true">
+            <div class="metric-big-number gradient-text-cyan" data-counter="1.4" data-suffix="B+" data-decimals="1">0.0B+</div>
+            <div class="metric-caption">Transaction Volume Routed</div>
+          </div>
+
+          <div class="metric-card reveal" data-tilt="true">
+            <div class="metric-big-number" style="color: #fff;" data-counter="120" data-suffix=" FPS" data-decimals="0">0 FPS</div>
+            <div class="metric-caption">Peak WebGL Frame Rate</div>
+          </div>
+
+          <div class="metric-card reveal" data-tilt="true">
+            <div class="metric-big-number" style="color: var(--violet);" data-counter="42" data-suffix="+" data-decimals="0">0+</div>
+            <div class="metric-caption">Global Design Accolades</div>
+          </div>
+
+          <div class="metric-card reveal" data-tilt="true">
+            <div class="metric-big-number" style="color: var(--emerald);" data-counter="99.99" data-suffix="%" data-decimals="2">0.00%</div>
+            <div class="metric-caption">Edge Infrastructure Uptime</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         TESTIMONIALS MARQUEE
+         ========================================================================== -->
+    <section id="testimonials" class="section">
+      <div class="container">
+        
+        <div class="section-header reveal">
+          <div class="section-badge">
+            <span class="dot"></span>
+            <span>Peer Endorsements</span>
+          </div>
+          <h2 class="section-title">Trusted by Visionary Founders</h2>
+          <p class="section-subtitle">
+            What engineering leaders, creative directors, and venture-backed founders say about partnering with SYNAPSE.
+          </p>
+        </div>
+
+        <div class="testimonials-marquee-wrapper reveal">
+          <div class="testimonials-track">
+            
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+              <div class="testimonial-quote">
+                "SYNAPSE elevated our spatial product from a rudimentary prototype to an Awwwards Site of the Year winner. Their WebGL engineering is unmatched."
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar" style="background: linear-gradient(135deg, var(--cyan), #0284c7);"></div>
+                <div>
+                  <div class="author-name">Elena Rostova</div>
+                  <div class="author-title">VP of Product, Aether OS</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+              <div class="testimonial-quote">
+                "Handling 10 million real-time order-book updates per second with zero UI frame drops was deemed impossible in browser. SYNAPSE delivered it in 3 months."
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar" style="background: linear-gradient(135deg, var(--emerald), #065f46);"></div>
+                <div>
+                  <div class="author-name">Marcus Vance</div>
+                  <div class="author-title">CTO, Chronos Capital</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+              <div class="testimonial-quote">
+                "The spring physics micro-interactions and tactile Web Audio feedback transformed our generative AI tool into an addictive creative daily driver."
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar" style="background: linear-gradient(135deg, var(--magenta), var(--violet));"></div>
+                <div>
+                  <div class="author-name">Sophia Sterling</div>
+                  <div class="author-title">Founder, Lumina Creative</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="testimonial-card">
+              <div class="testimonial-quote">
+                "Our e-commerce conversion jumped by 340% within 30 days of launching the 3D customizer. The level of luxury finish is simply breathtaking."
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);"></div>
+                <div>
+                  <div class="author-name">Alexander Von Berg</div>
+                  <div class="author-title">Managing Director, Zenith Luxury</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Duplicate items for seamless infinite marquee loop -->
+            <div class="testimonial-card">
+              <div class="testimonial-quote">
+                "SYNAPSE elevated our spatial product from a rudimentary prototype to an Awwwards Site of the Year winner. Their WebGL engineering is unmatched."
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar" style="background: linear-gradient(135deg, var(--cyan), #0284c7);"></div>
+                <div>
+                  <div class="author-name">Elena Rostova</div>
+                  <div class="author-title">VP of Product, Aether OS</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-quote">
+                "Handling 10 million real-time order-book updates per second with zero UI frame drops was deemed impossible in browser. SYNAPSE delivered it in 3 months."
+              </div>
+              <div class="testimonial-author">
+                <div class="author-avatar" style="background: linear-gradient(135deg, var(--emerald), #065f46);"></div>
+                <div>
+                  <div class="author-name">Marcus Vance</div>
+                  <div class="author-title">CTO, Chronos Capital</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CALL TO ACTION / INQUIRY SECTION
+         ========================================================================== -->
+    <section id="contact" class="section">
+      <div class="container">
+        
+        <div class="cta-box reveal">
+          <div class="cta-inner">
+            <div class="section-badge" style="margin-bottom: 20px;">
+              <span class="dot"></span>
+              <span>Available for Q4 2026 Collaborations</span>
+            </div>
+            <h2 class="cta-title">Ready to Engineer Something Extraordinary?</h2>
+            <p style="font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 36px; line-height: 1.7;">
+              Whether you require a groundbreaking 3D WebGL web platform, high-frequency interface, or complete design system overhaul, let's turn your vision into an industry benchmark.
+            </p>
+
+            <!-- Direct Interactive Inquiry Form -->
+            <form id="contact-form" style="max-width: 580px; margin: 0 auto; text-align: left;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                <div>
+                  <label for="contact-name" style="display: block; font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted); margin-bottom: 6px;">YOUR NAME</label>
+                  <input type="text" id="contact-name" class="newsletter-input" style="width: 100%;" placeholder="Elena Vance" required>
+                </div>
+                <div>
+                  <label for="contact-email" style="display: block; font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted); margin-bottom: 6px;">BUSINESS EMAIL</label>
+                  <input type="email" id="contact-email" class="newsletter-input" style="width: 100%;" placeholder="elena@company.com" required>
+                </div>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <label for="contact-message" style="display: block; font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted); margin-bottom: 6px;">PROJECT SCOPE & TIMELINE</label>
+                <textarea id="contact-message" class="newsletter-input" style="width: 100%; height: 100px; resize: vertical;" placeholder="Tell us about your product goals, desired 3D features, and timeline..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;" data-magnetic="true" data-cursor-hover="true">
+                <i data-lucide="send" style="width: 18px; height: 18px;"></i>
+                <span>Transmit Project Inquiry</span>
+                <span class="btn-glow"></span>
+              </button>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-brand">
+            <div class="brand-icon">
+              <i data-lucide="orbit" style="width: 20px; height: 20px;"></i>
+            </div>
+            <span>SYNAPSE<span style="color: var(--cyan);">.</span></span>
+          </div>
+          <p>
+            An elite creative engineering laboratory crafting immersive 3D spatial platforms, generative interfaces, and award-winning digital experiences.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#hero" class="footer-link">Home</a></li>
+            <li><a href="#about" class="footer-link">About Studio</a></li>
+            <li><a href="#services" class="footer-link">Disciplines</a></li>
+            <li><a href="#showcase" class="footer-link">Live Sandbox</a></li>
+            <li><a href="#portfolio" class="footer-link">Case Studies</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Social / Radar</h4>
+          <ul class="footer-links">
+            <li><a href="https://x.com" target="_blank" rel="noopener noreferrer" class="footer-link">X (Twitter)</a></li>
+            <li><a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Enterprise</a></li>
+            <li><a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" class="footer-link">Dribbble Pro</a></li>
+            <li><a href="https://awwwards.com" target="_blank" rel="noopener noreferrer" class="footer-link">Awwwards Profile</a></li>
+            <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Quantum Dispatch</h4>
+          <p style="font-size: 0.88rem; margin-bottom: 12px;">Subscribe for monthly insights on WebGPU shaders, spatial UI, and creative engineering.</p>
+          <form id="newsletter-form" class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="founder@domain.com" required aria-label="Newsletter Email">
+            <button type="submit" class="btn btn-primary" style="padding: 12px 18px;" data-cursor-hover="true" aria-label="Subscribe">
+              <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 SYNAPSE STUDIO INC. All rights reserved. Designed with precision & passion.
+        </div>
+        <div class="system-status">
+          <span class="status-dot"></span>
+          <span>ALL EDGE SYSTEMS NOMINAL • 12MS</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Project Detail Case Study Modal Overlay -->
+  <div id="project-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Project Case Study Details">
+    <div class="modal-content">
+      <button id="modal-close-btn" class="modal-close-btn" aria-label="Close Modal" data-cursor-hover="true">
+        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+      </button>
+      <div id="modal-body-content" style="padding: 32px;">
+        <!-- Dynamic Case Study Content Loaded Here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- ES Module Application Bootstrap -->
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>

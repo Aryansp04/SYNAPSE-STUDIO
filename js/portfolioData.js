@@ -1,0 +1,102 @@
+/**
+ * SYNAPSE STUDIO - Award-Winning Case Studies Dataset
+ */
+
+export const portfolioProjects = [
+  {
+    id: 'aether-os',
+    title: 'AETHER Spatial OS',
+    category: 'ai-webgl',
+    categoryLabel: 'Spatial & WebGL',
+    summary: 'Next-generation spatial operating system with real-time neural gesture tracking and fluid 3D windows.',
+    metric: '+480% User Engagement',
+    client: 'Aether Technologies',
+    year: '2026',
+    duration: '4 Months',
+    tags: ['Three.js', 'WebGPU', 'React', 'Rust Core', 'Framer Motion'],
+    gradient: 'linear-gradient(135deg, #0ea5e9, #6366f1)',
+    challenge: 'Architecting a zero-latency spatial interface capable of 120 FPS rendering across both vision headsets and web browsers without thermal throttling.',
+    solution: 'Engineered a custom WebGPU compute pipeline with dynamic level-of-detail meshes and spatial audio feedback layers.',
+    impact: 'Awarded Site of the Year 2026, adopted by 120,000+ spatial computing developers worldwide.'
+  },
+  {
+    id: 'chronos-quant',
+    title: 'Chronos Quantum Terminal',
+    category: 'fintech',
+    categoryLabel: 'FinTech & Quant',
+    summary: 'Ultra-low latency algorithmic trading visualizer processing 10M+ ticks/sec with interactive heatmaps.',
+    metric: '0.04ms Render Latency',
+    client: 'Chronos Capital LLC',
+    year: '2026',
+    duration: '3 Months',
+    tags: ['WebSockets', 'Tailwind CSS', 'WASM', 'WebGL 2.0', 'D3.js'],
+    gradient: 'linear-gradient(135deg, #10b981, #065f46)',
+    challenge: 'Streaming real-time order-book matrices with thousands of simultaneous DOM and canvas updates without dropping UI frames.',
+    solution: 'Implemented multi-threaded Web Workers and SharedArrayBuffer memory caching with off-screen canvas rendering.',
+    impact: 'Processed $8.4B in daily volume with zero graphical lag spikes during peak volatility events.'
+  },
+  {
+    id: 'lumina-studios',
+    title: 'Lumina Generative AI Suite',
+    category: 'creative',
+    categoryLabel: 'AI & Creative',
+    summary: 'Generative diffusion interface with node-based prompt graphs, real-time upscaling, and collaborative canvases.',
+    metric: '4.2M Images Generated',
+    client: 'Lumina Creative Labs',
+    year: '2025',
+    duration: '5 Months',
+    tags: ['React', 'Python Backend', 'WebGL', 'Tailwind', 'Canvas API'],
+    gradient: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
+    challenge: 'Creating a non-destructive infinite node canvas that allows multi-user real-time blending of generative models.',
+    solution: 'Built a lightweight vector graph runtime with automatic texture atlas mip-mapping and localized undo trees.',
+    impact: 'Scaled from 0 to 250k monthly active creators, raising $18M Series A.'
+  },
+  {
+    id: 'hyperion-hyperdrive',
+    title: 'Hyperion Autonomous Telemetry',
+    category: 'ai-webgl',
+    categoryLabel: 'Autonomous AI',
+    summary: 'Mission control telemetry visualizer for orbital satellite constellations and autonomous drones.',
+    metric: '99.999% Fault Tolerance',
+    client: 'Hyperion Aerospace',
+    year: '2026',
+    duration: '6 Months',
+    tags: ['Three.js', 'GeoJSON', 'TypeScript', 'Web Workers', 'CSS Modules'],
+    gradient: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+    challenge: 'Visualizing 4,000 live orbital paths with celestial collision predictions in real-time.',
+    solution: 'Designed custom orbital propagator algorithms in GLSL shaders for instant spherical projection rendering.',
+    impact: 'Deployed across 4 global command centers managing multi-billion dollar aerospace fleets.'
+  },
+  {
+    id: 'solaris-defi',
+    title: 'Solaris Liquid Staking Protocol',
+    category: 'fintech',
+    categoryLabel: 'FinTech & Web3',
+    summary: 'High-yield non-custodial staking interface with interactive yield forecasting algorithms and instant swaps.',
+    metric: '$420M Total Value Locked',
+    client: 'Solaris Foundation',
+    year: '2025',
+    duration: '2 Months',
+    tags: ['React', 'Ethers.js', 'Tailwind CSS', 'Framer Motion'],
+    gradient: 'linear-gradient(135deg, #f59e0b, #d97706)',
+    challenge: 'Simplifying complex multi-chain liquidity vaults into a 1-click tactile user experience.',
+    solution: 'Created an intelligent transaction simulation engine with visual slippage breakdowns and automated route optimization.',
+    impact: 'TVL grew from $12M to $420M within 90 days of redesign launch.'
+  },
+  {
+    id: 'zenith-luxury',
+    title: 'Zenith Haute Horlogerie 3D',
+    category: 'creative',
+    categoryLabel: 'Luxury E-Commerce',
+    summary: 'Photorealistic real-time 3D watch customizer with microscopic gear mechanism simulation and raytracing.',
+    metric: '+215% Average Order Value',
+    client: 'Zenith Timepieces',
+    year: '2026',
+    duration: '3.5 Months',
+    tags: ['Three.js', 'GLTF / PBR', 'Post-processing', 'Next.js'],
+    gradient: 'linear-gradient(135deg, #64748b, #334155)',
+    challenge: 'Achieving Swiss watch level micro-mechanical fidelity within a lightweight 6MB web asset footprint.',
+    solution: 'Utilized custom anisotropic metal shaders, baked occlusion textures, and realistic glass refractions.',
+    impact: 'Featured on FWA of the Day, driving 3.2x increase in custom bespoke timepiece commissions.'
+  }
+];
